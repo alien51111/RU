@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rafidain Union | Intelligence Matrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #13737c;
+        --accent: #22d3ee;
+        --bg-main: #020617;
+        --glass-bg: rgba(15, 23, 42, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.08);
+      }
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        margin: 0;
+        background-color: var(--bg-main);
+        color: #f8fafc;
+        overflow: hidden;
+        background-image: 
+          radial-gradient(circle at 50% 50%, rgba(19, 115, 124, 0.05) 0%, transparent 100%),
+          url("https://www.transparenttextures.com/patterns/p6.png");
+      }
+      .font-display {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .glass-hud {
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      }
+      .map-perspective {
+        perspective: 2000px;
+        transform-style: preserve-3d;
+      }
+      .map-layer {
+        transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-style: preserve-3d;
+      }
+      .floating-tile {
+        animation: tileFloat 6s ease-in-out infinite;
+      }
+      @keyframes tileFloat {
+        0%, 100% { transform: translateY(0) rotateX(0deg); }
+        50% { transform: translateY(-10px) rotateX(2deg); }
+      }
+      @keyframes slideUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      @keyframes slideDown {
+        from { transform: translateY(-30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes zoomIn {
+        from { transform: scale(0.95); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      .animate-slide-up {
+        animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-slide-down {
+        animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+      .animate-zoom-in {
+        animation: zoomIn 0.4s ease-out forwards;
+      }
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.2); border-radius: 10px; }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+  </body>
+</html>
