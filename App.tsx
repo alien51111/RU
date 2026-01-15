@@ -56,25 +56,43 @@ const App: React.FC = () => {
       {/* BACKGROUND CONTENT WRAPPER (Blur controlled by zoomedLocation) */}
       <div className={`flex flex-col h-full w-full transition-all duration-700 ${zoomedLocation ? 'blur-2xl grayscale-[0.5] scale-95 opacity-50' : ''}`}>
         <Navbar currentView={viewMode} />
-        <main className="flex-1 relative overflow-hidden">
-          <MapFrame 
-            coords={currentLocation.coords} 
-            activeId={activeId} 
-            onSelect={handleSelect}
-            onPhotoZoom={openZoom}
-            viewMode={viewMode}
-          />
+        
+        {/* Main Content Area with Inset Layout */}
+        <main className="flex-1 relative overflow-hidden p-4 sm:p-6 lg:p-8 flex flex-col">
+          <div className="flex-1 relative w-full h-full rounded-[48px] overflow-hidden border border-white/5 bg-slate-900/40 shadow-[0_0_50px_rgba(0,0,0,0.5)] group/frame">
+            {/* The Map Component */}
+            <MapFrame 
+              coords={currentLocation.coords} 
+              activeId={activeId} 
+              onSelect={handleSelect}
+              onPhotoZoom={openZoom}
+              viewMode={viewMode}
+            />
 
-          <div className="absolute top-8 left-8 z-50 w-full max-w-[340px] h-[calc(100%-64px)] pointer-events-none flex flex-col gap-5">
-            <div className="pointer-events-auto">
-              <FloatingPanel 
-                currentLocationId={activeId} 
-                onSelect={handleSelect} 
-                onBack={handleBack}
-                history={history}
-                viewMode={viewMode}
-                setViewMode={setViewMode}
-              />
+            {/* Inner Frame Overlay Details (HUD vibe) */}
+            <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-slate-950/40 to-transparent pointer-events-none z-10"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-950/40 to-transparent pointer-events-none z-10"></div>
+            
+            {/* UI Controls Overlay (Positioned within the frame) */}
+            <div className="absolute top-8 left-8 z-50 w-full max-w-[320px] pointer-events-none flex flex-col gap-5">
+              <div className="pointer-events-auto">
+                <FloatingPanel 
+                  currentLocationId={activeId} 
+                  onSelect={handleSelect} 
+                  onBack={handleBack}
+                  history={history}
+                  viewMode={viewMode}
+                  setViewMode={setViewMode}
+                />
+              </div>
+            </div>
+
+            {/* In-Frame Status Indicators */}
+            <div className="absolute top-8 right-8 z-50 flex flex-col items-end gap-3 pointer-events-none">
+              <div className="pointer-events-auto glass-hud px-4 py-2 rounded-full border border-white/10 flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_10px_#22d3ee]"></div>
+                <span className="text-[9px] font-black text-white/70 uppercase tracking-widest">Live Uplink Active</span>
+              </div>
             </div>
           </div>
         </main>
